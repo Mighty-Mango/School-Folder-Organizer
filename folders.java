@@ -37,6 +37,7 @@ public class folders {
 		String examMaterials = "Exam Materials";
 		String homework = "Homework";
 		String projects = "Project";
+		String backslash ="/";
 		
 		String schoolName;
 		String schoolAlreadyExist;
@@ -55,9 +56,11 @@ public class folders {
 		int numOfProjects;
 		String doesHaveProject;
 		
-		String username = System.getProperty("user.name");
+		String userName = System.getProperty("user.name");
+		String path = "";
+		path += "C:"+ File.separator+"Users"+ File.separator+userName+ File.separator+"Documents"+ File.separator;
 		
-		File root;
+		boolean root;
 		
 		
 		
@@ -70,25 +73,35 @@ public class folders {
 		 * possibly adding file explorer to select an existing folder for the school
 		 */
 		System.out.println("Hello Welcome to Efficient management of your Electronic Files for school");
-		System.out.println("Do you already have a school or University folder?");
+		/*System.out.println("Do you already have a school or University folder?");
 		schoolAlreadyExist = scan.next();
 		if(schoolAlreadyExist.equalsIgnoreCase("Yes"))
 		{
 			
 		}
+		*/
 		System.out.println("Enter the School or University you are currently Attending");
 		schoolName = scan.nextLine();
-		System.out.println("What is your current semester?");
+		System.out.println("What is your current semester? Ex. Fall 2019");
 		currentSemester = scan.nextLine();
-		System.out.println("How many courses are you currently taking?");
+		System.out.println("How many courses are you currently taking? Ex 5");
 		numOfCourses = scan.nextInt();
-		
+		if(numOfCourses < 0)
+		{
+			System.out.println("I am sorry could you type a valid number? Ex 5");
+			numOfCourses = scan.nextInt();
+		}
+		System.out.println("this is number of courses: "+numOfCourses);
+		scan.nextLine();
 		for(int o = 0; o<numOfCourses;o++)
 		{
 			System.out.println("What is the name of the "+numbercourse[o]+" course?");
 			listOfCourses[o] = scan.nextLine();
 		}
 		
+		/* this part is to add projects to specific courses
+		 * and adding folders to courses such as Exam Study Guide
+		 * Lecture Slides, Misc Files, Homework, etc...
 		System.out.println("Do any of these courses have projects?");
 		doesHaveProject = scan.nextLine();
 		if(doesHaveProject.equalsIgnoreCase("yes"))
@@ -97,20 +110,37 @@ public class folders {
 			numOfProjectCourse = scan.nextInt();
 			for(int i = 0;i<numOfProjectCourse;i++)
 			{
-				System.out.println("How many Projects?");
+				System.out.println("Which of your courses have projects?");
+				
 				numOfProjects = scan.nextInt();
 			}
 			
 		}
-		/*
-		 * this is where the directories are created
-		 */
-		/*
-		 * root = new File();
-		   root.mkdir();
 		*/
-		System.out.println("School: "+schoolName +" Semester: "+semester+" Courses: "+ courseOne 
-				+" "+ courseTwo +" "+ courseThree +" "+ courseFour +" "+ courseFive);
+		
+		// path += \\Documents\\school+Semester+currentsemester+Courses+current courses+ examstudy guide
+		//															same directory		+ lecture slides
+		path += schoolName+ File.separator+currentSemester+ File.separator+course;
+		System.out.println(path);
+		
+		System.out.println(new File(path).mkdirs());
+		
+		int pathLength = path.length();
+		path += File.pathSeparator;
+		
+		for(int i = 0; i < numOfCourses;i++)
+		{
+			path+= listOfCourses[i];
+			new File(path).mkdirs();
+			
+			System.out.println("Path before subString: "+ path);
+			
+			path = path.substring(0, pathLength);
+			
+			System.out.println("Path after substring: "+path);
+			
+		}
+		
 	}
 
 }
