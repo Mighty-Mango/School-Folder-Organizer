@@ -30,6 +30,9 @@ public class folders {
 		
 		Scanner scan = new Scanner(System.in);
 		
+		/*
+		 * Const Strings
+		 */
 		String course = "Courses";
 		String semester = "Semester";
 		String lectureSlides = "Lecture Slides";
@@ -39,6 +42,9 @@ public class folders {
 		String projects = "Project";
 		String backslash ="/";
 		
+		/*
+		 * String variables that will change based on user response
+		 */
 		String schoolName;
 		String schoolAlreadyExist;
 		String currentSemester;
@@ -48,19 +54,29 @@ public class folders {
 		String courseFour = "";
 		String courseFive = "";
 		
+		/*
+		 * Arrays to hold the course names
+		 */
 		String listOfCourses[] = {courseOne,courseTwo,courseThree,courseFour,courseFive};
 		String numbercourse[]= {"First","Second","Third","Fourth","Fifth"};
 		
+		/*
+		 * Other variables that will change based on user response
+		 */
 		int numOfCourses;
 		int numOfProjectCourse;
 		int numOfProjects;
 		String doesHaveProject;
 		
+		/*
+		 * this will get the user name for the computer
+		 */
 		String userName = System.getProperty("user.name");
 		String path = "";
+		/*
+		 * create the path for the directories
+		 */
 		path += "C:"+ File.separator+"Users"+ File.separator+userName+ File.separator+"Documents"+ File.separator;
-		
-		boolean root;
 		
 		
 		
@@ -120,23 +136,33 @@ public class folders {
 		
 		// path += \\Documents\\school+Semester+currentsemester+Courses+current courses+ examstudy guide
 		//															same directory		+ lecture slides
+		
+		// adds all the user inputs to the path
 		path += schoolName+ File.separator+currentSemester+ File.separator+course;
 		System.out.println(path);
-		
+		// creates the path
 		System.out.println(new File(path).mkdirs());
 		
+		//creates a integer variable for the path length
 		int pathLength = path.length();
-		path += File.pathSeparator;
+		// adds the / to the path because we'll be adding courses
 		
+		
+		
+		// 0 to the number of courses the user has
 		for(int i = 0; i < numOfCourses;i++)
 		{
-			path+= listOfCourses[i];
+			// adds courses to the path
+			path+= File.separator+listOfCourses[i];
+			// puts the path to the File and then creates the directory.
+			// Note: if we use mkdir it won't work bcuz mkdir for some reason cannot take in a certain amount of folders
+			// but because we use mkdirs it extends how much we can put into the path allowing us to create the directories
 			new File(path).mkdirs();
-			
+			// prints the path for testing purposes
 			System.out.println("Path before subString: "+ path);
-			
+			// resets the path so we can add the other course
 			path = path.substring(0, pathLength);
-			
+			// prints again for testing purposes
 			System.out.println("Path after substring: "+path);
 			
 		}
